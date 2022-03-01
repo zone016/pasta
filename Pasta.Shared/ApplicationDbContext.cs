@@ -7,7 +7,8 @@ namespace Pasta.Shared;
 public class ApplicationDbContext : DbContext
 {
     public DbSet<ConfigurationEntity?> Configurations { get; set; }
-    public DbSet<Header> Headers { get; set; }
+    public DbSet<HeaderEntity> Headers { get; set; }
+    public DbSet<PortEntity> Ports { get; set; }
     public DbSet<Job> Jobs { get; set; }
     public DbSet<Report> Reports { get; set; }
     public DbSet<Webhook> Webhooks { get; set; }

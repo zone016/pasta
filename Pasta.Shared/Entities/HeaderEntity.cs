@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Pasta.Shared.Entities;
 
 [Table("HEADERS")]
-public class Header
+public class HeaderEntity
 {
     [Key] public Guid Guid { get; init; } = Guid.NewGuid();
     [Required, MaxLength(1024)] public string Name { get; init; } = default!;

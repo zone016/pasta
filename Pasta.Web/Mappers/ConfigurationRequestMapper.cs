@@ -6,18 +6,18 @@ using Pasta.Shared.Responses;
 
 namespace Pasta.Web.Mappers;
 
-public class ConfigurationMapper : Mapper<ConfigurationRequest, ConfigurationResponse, ConfigurationEntity>
+public class ConfigurationRequestMapper : Mapper<ConfigurationRequest, ConfigurationResponse, ConfigurationEntity>
 {
     public override ConfigurationEntity ToEntity(ConfigurationRequest request) => new()
     {
         Guid = request.Guid,
         CreatedAt = request.CreatedAt,
-        HttpProbingPorts = request.HttpProbingPorts.Select(pNumber => new Port{Number = pNumber}).ToList(),
-        Headers = request.Headers.Select(h => new Header{Name = h.Key, Value = h.Value}).ToList(),
+        HttpProbingPorts = request.HttpProbingPorts.Select(pNumber => new PortEntity{Number = pNumber}).ToList(),
+        Headers = request.Headers.Select(h => new HeaderEntity{Name = h.Key, Value = h.Value}).ToList(),
         IsScreenshotEnable = request.IsScreenshotEnable,
         IsFaviconDownloadEnable = request.IsFaviconDownloadEnable,
         IsFaviconHashEnable = request.IsFaviconHashEnable,
-        IsScrenshotHashEnable = request.IsScrenshotHashEnable,
+        IsScreenshotHashEnable = request.IsScrenshotHashEnable,
         IsResolveNameEnable = request.IsResolveNameEnable,
         IsIgnoreCertificateErrorsEnable = request.IsIgnoreCertificateErrorsEnable,
         IsRedirectEnable = request.IsRedirectEnable,
@@ -36,7 +36,7 @@ public class ConfigurationMapper : Mapper<ConfigurationRequest, ConfigurationRes
         IsScreenshotEnable = entity.IsScreenshotEnable,
         IsFaviconDownloadEnable = entity.IsFaviconDownloadEnable,
         IsFaviconHashEnable = entity.IsFaviconHashEnable,
-        IsScrenshotHashEnable = entity.IsScrenshotHashEnable,
+        IsScrenshotHashEnable = entity.IsScreenshotHashEnable,
         IsResolveNameEnable = entity.IsResolveNameEnable,
         IsIgnoreCertificateErrorsEnable = entity.IsIgnoreCertificateErrorsEnable,
         IsRedirectEnable = entity.IsRedirectEnable,

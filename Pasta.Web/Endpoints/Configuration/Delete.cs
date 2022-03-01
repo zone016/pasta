@@ -9,19 +9,19 @@ using Pasta.Web.Mappers;
 
 namespace Pasta.Web.Endpoints.Configuration;
 
-public class Find : Endpoint<FindConfigurationRequest, ConfigurationResponse, ConfigurationRequestMapper>
+public class Delete : Endpoint<FindConfigurationRequest, ConfigurationResponse, ConfigurationRequestMapper>
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public Find(ApplicationDbContext dbContext)
+    public Delete(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
     public override void Configure()
     {
-        Get("/configurations/{guid}");
-        AllowAnonymous();
+        Delete("/configurations/{guid}");
+        AllowAnonymous();        
     }
 
     public override async Task HandleAsync(FindConfigurationRequest request, CancellationToken ct)
@@ -30,15 +30,16 @@ public class Find : Endpoint<FindConfigurationRequest, ConfigurationResponse, Co
             .Include(c => c.Headers)
             .Include(c => c.HttpProbingPorts)
             .FirstOrDefaultAsync(c => c.Guid == Guid.Parse(request.Guid), cancellationToken: ct);
-
+        
         if (element is null)
         {
             await SendNotFoundAsync(ct);
             return;
         }
         
-        var response = Map.FromEntity(element);
-        await SendCreatedAtAsync($"/configuration/{response.Guid}", StatusCodes.Status201Created, response, ct);
-        // await SendAsync(response, StatusCodes.Status201Created, cancellation: ct);
+        _dbContext.Configurations.Remove(element);
+        await _dbContext.SaveChangesAsync(ct);
+        
+        await SendNoContentAsync(ct);
     }
 }

@@ -4,9 +4,9 @@ using Pasta.Shared.Requests;
 
 namespace Pasta.Web.Validators;
 
-public class ConfigurationValidator : Validator<ConfigurationRequest>
+public class ConfigurationRequestValidator : Validator<ConfigurationRequest>
 {
-    public ConfigurationValidator()
+    public ConfigurationRequestValidator()
     {
         RuleFor(request => request.Headers)
             .Must(h => h.Any())

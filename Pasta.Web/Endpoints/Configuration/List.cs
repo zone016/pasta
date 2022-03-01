@@ -9,7 +9,7 @@ using Pasta.Web.Mappers;
 
 namespace Pasta.Web.Endpoints.Configuration;
 
-public class List : Endpoint<ConfigurationRequest, ConfigurationResponses, ConfigurationMapper>
+public class List : Endpoint<ConfigurationRequest, ConfigurationResponses, ConfigurationRequestMapper>
 {
     private readonly ApplicationDbContext _dbContext;
 
