@@ -3,13 +3,12 @@
 using Microsoft.EntityFrameworkCore;
 
 using Pasta.Shared;
-using Pasta.Shared.Requests;
 using Pasta.Shared.Responses;
 using Pasta.Web.Mappers;
 
-namespace Pasta.Web.Endpoints.Configuration;
+namespace Pasta.Web.Endpoints.Job;
 
-public class List : Endpoint<ConfigurationRequest, ConfigurationsResponse, ConfigurationRequestMapper>
+public class List : Endpoint<EmptyRequest, ConfigurationsResponse, ConfigurationRequestMapper>
 {
     private readonly ApplicationDbContext _dbContext;
 
@@ -20,13 +19,13 @@ public class List : Endpoint<ConfigurationRequest, ConfigurationsResponse, Confi
 
     public override void Configure()
     {
-        Get("/configurations");
+        Get("/jobs");
         AllowAnonymous();
         
         DontThrowIfValidationFails();
     }
 
-    public override async Task HandleAsync(ConfigurationRequest request, CancellationToken ct)
+    public override async Task HandleAsync(EmptyRequest _, CancellationToken ct)
     {
         var configurations = await _dbContext.Configurations
             .Include(c => c.Headers)

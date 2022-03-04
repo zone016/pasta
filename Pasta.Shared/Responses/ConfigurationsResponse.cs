@@ -1,6 +1,6 @@
 ﻿namespace Pasta.Shared.Responses;
 
-public record ConfigurationResponses
+public record ConfigurationsResponse
 {
     public IEnumerable<ConfigurationResponse> Configurations { get; init; } = default!;
 }

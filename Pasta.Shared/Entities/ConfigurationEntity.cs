@@ -24,6 +24,6 @@ public record class ConfigurationEntity
     [Required] public int MaxAutomaticRedirects { get; set; }
     [Required] public int Timeout { get; set; }
 
-    [Required, MaxLength(4096)] public string ScreenshotResolution { get; set; } = default!;
+    [Required, MaxLength(128)] public string ScreenshotResolution { get; set; } = default!;
     [Required, MaxLength(256)] public string Title { get; set; } = default!;
 }

@@ -8,17 +8,17 @@ namespace Pasta.Shared.Enums;
 public enum Priority
 {
     /// <summary>
-    /// If the <see cref="Job"/> is a low priority task.
+    /// If the <see cref="JobEntity"/> is a low priority task.
     /// </summary>
     Low = 0x00,
     
     /// <summary>
-    /// If the <see cref="Job"/> is a normal priority task.
+    /// If the <see cref="JobEntity"/> is a normal priority task.
     /// </summary>
     Normal = 0x01,
     
     /// <summary>
-    /// If the <see cref="Job"/> is a high priority task.
+    /// If the <see cref="JobEntity"/> is a high priority task.
     /// </summary>
     High = 0x02
 }

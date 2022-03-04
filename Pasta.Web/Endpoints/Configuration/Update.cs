@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using FastEndpoints.Validation;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +38,21 @@ public class Update : Endpoint<ConfigurationRequest, ConfigurationResponse, Conf
             await SendNotFoundAsync(ct);
             return;
         }
+        
+        // If there is a running job using this configuration
+        var isConfigurationInUse = await _dbContext.Jobs
+            .Include(j => j.Configuration)
+            .AnyAsync(j => j.IsRunning && j.Configuration.Guid == element.Guid, cancellationToken: ct);
 
+        if (isConfigurationInUse)
+        {
+            ValidationFailures.Add(new ValidationFailure(nameof(request.Guid),
+                "Configuration is already utilized by a running job!"));
+            
+            await SendErrorsAsync(ct);
+            return;
+        }
+        
         var headers = element.Headers;
         _dbContext.Headers.RemoveRange(headers);
         await _dbContext.SaveChangesAsync(ct);
@@ -68,7 +83,7 @@ public class Update : Endpoint<ConfigurationRequest, ConfigurationResponse, Conf
 
         await _dbContext.Ports.AddRangeAsync(ports, ct);
         await _dbContext.SaveChangesAsync(ct);
-
+        
         element.Headers = headers;
         element.HttpProbingPorts = ports;
         element.IsScreenshotEnable = request.IsScreenshotEnable;

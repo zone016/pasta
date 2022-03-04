@@ -4,6 +4,23 @@ using FastEndpoints;
 
 using Pasta.Shared;
 
+// using System.Text.Json;
+// using Pasta.Shared.Enums;
+// using Pasta.Shared.Requests;
+//
+// Console.WriteLine(JsonSerializer.Serialize(new JobRequest
+// {
+//     Webhooks =
+//     {
+//         new WebhookRequest
+//         {
+//             Type = Enum.GetName(WebhookType.Slack)!,
+//             Address = "https://google.com"
+//         }
+//     }
+// }));
+// Environment.Exit(0);
+
 var builder = WebApplication.CreateBuilder(args);
 
 #if DEBUG
@@ -39,11 +56,6 @@ app.UseFastEndpoints();
 // });
 //
 // app.MapDelete("/jobs/{guid:guid}", (Guid guid) =>
-// {
-//     
-// });
-//
-// app.MapGet("/jobs/status/{guid:guid}", (Guid guid) =>
 // {
 //     
 // });

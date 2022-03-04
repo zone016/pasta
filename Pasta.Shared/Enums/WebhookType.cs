@@ -3,7 +3,7 @@
 namespace Pasta.Shared.Enums;
 
 /// <summary>
-/// Type of the <see cref="Webhook"/>.
+/// Type of the <see cref="WebhookEntity"/>.
 /// </summary>
 public enum WebhookType
 {

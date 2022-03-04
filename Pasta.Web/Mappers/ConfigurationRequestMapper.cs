@@ -11,7 +11,7 @@ public class ConfigurationRequestMapper : Mapper<ConfigurationRequest, Configura
     public override ConfigurationEntity ToEntity(ConfigurationRequest request) => new()
     {
         Guid = request.Guid,
-        CreatedAt = request.CreatedAt,
+        CreatedAt = DateTime.Now,
         HttpProbingPorts = request.HttpProbingPorts.Select(pNumber => new PortEntity{Number = pNumber}).ToList(),
         Headers = request.Headers.Select(h => new HeaderEntity{Name = h.Key, Value = h.Value}).ToList(),
         IsScreenshotEnable = request.IsScreenshotEnable,

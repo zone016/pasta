@@ -7,11 +7,11 @@ using Pasta.Web.Mappers;
 
 namespace Pasta.Web.Endpoints.Configuration;
 
-public class Save : Endpoint<ConfigurationRequest, ConfigurationResponse, ConfigurationRequestMapper>
+public class Create : Endpoint<ConfigurationRequest, ConfigurationResponse, ConfigurationRequestMapper>
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public Save(ApplicationDbContext dbContext)
+    public Create(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }
@@ -24,10 +24,8 @@ public class Save : Endpoint<ConfigurationRequest, ConfigurationResponse, Config
 
     public override async Task HandleAsync(ConfigurationRequest request, CancellationToken ct)
     {
-        var element = Map.ToEntity(request);
-        element.CreatedAt = DateTime.Now;
-
-        var entry = await _dbContext.AddAsync(element, ct);
+        var entity = Map.ToEntity(request);
+        var entry = await _dbContext.AddAsync(entity, ct);
         await _dbContext.SaveChangesAsync(ct);
 
         var response = Map.FromEntity(entry.Entity);
